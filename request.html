@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+</head>
+<body>
+	<form id="sampleForm">
+		<input type="text" name="username">
+		<input type="passwprd" name="password">	
+		<button id="send" value="Send">Send</button>
+	</form>
+	
+</body>
+<script type="text/javascript">
+	$(function(){
+
+		$.ajax({
+			crossDomain: true,
+			url: "http://127.0.0.1:8000/mysql_select",
+			success: function(res){
+				alert(res);
+			}
+		});
+
+
+
+		$("#send").click(function(e){
+			e.preventDefault();
+			var data = $("#sampleForm").serializeArray();
+			data = JSON.stringify(data);
+			$.ajax({
+			crossDomain: true,
+			url: "http://127.0.0.1:8000/mysql_insert",
+			data: data,
+			type: "POST",		
+			success: function(result){
+				alert(result);
+			},
+			error: function(d, e){
+				alert(e);
+			}
+		});
+		});
+		
+	});
+</script>
+</html>
