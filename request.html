@@ -36,6 +36,7 @@
 			type: "POST",		
 			success: function(result){
 				alert(result);
+				$("body").html(result);
 			},
 			error: function(d, e){
 				alert(e);

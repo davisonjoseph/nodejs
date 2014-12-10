@@ -3,6 +3,7 @@ var http = require('http');
 var fs = require('fs');
 var jade = require('jade');
 var mysql = require("mysql");
+var qs = require('querystring');
 	
 
 // Configure our HTTP server to respond with Hello World to all requests.
@@ -70,8 +71,23 @@ response.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization,
 		
         console.log(request.method);
 
-		response.write("{messge:success}");
-		response.end();
+		//response.write("{messge:success}");
+		//response.write(JSON.stringify(request));
+
+		 var body='';
+			request.on('data', function (data) {
+			body +=data;
+			});
+			request.on('end',function(){
+			 
+			var POST = qs.parse(body);
+			console.log(body);
+			response.write(JSON.stringify(POST));
+			response.end();
+			});
+
+
+		
 	}
 	else{
 		response.write("invalid input");
